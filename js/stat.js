@@ -11,7 +11,7 @@ var BAR_X = 140;
 var BAR_Y = 90;
 var BAR_GAP = 50;
 
-var getMaxElement = function(arr) {
+var getMaxElement = function (arr) {
   var maxElement = arr[0];
 
   for (var i = 0; i < arr.length; i++) {
@@ -21,24 +21,24 @@ var getMaxElement = function(arr) {
   }
 
   return maxElement;
-}
+};
 
-var getRandomBlueColor = function() {
-  return 'hsl(240,' + (Math.random()*100).toString() + '%,50%)';
-}
+var getRandomBlueColor = function () {
+  return 'hsl(240,' + (Math.random() * 100).toString() + '%,50%)';
+};
 
- var renderCloud = function(ctx, x, y, color) {
-   ctx.fillStyle  = color;
-   ctx.fillRect(x,y,CLOUD_WIDTH,CLOUD_HEIGHT);
-}
+var renderCloud = function (ctx, x, y, color) {
+  ctx.fillStyle = color;
+  ctx.fillRect(x, y, CLOUD_WIDTH, CLOUD_HEIGHT);
+};
 
-var renderTextField = function(ctx, text, x, y) {
+var renderTextField = function (ctx, text, x, y) {
   ctx.fillStyle = 'black';
-  ctx.font = '16px PT Mono'
+  ctx.font = '16px PT Mono';
   ctx.fillText(text, x, y);
-}
+};
 
-var renderScoreList = function(ctx, players, times) {
+var renderScoreList = function (ctx, players, times) {
   var maxTime = getMaxElement(times);
 
   for (var i = 0; i < players.length; i++) {
@@ -48,8 +48,7 @@ var renderScoreList = function(ctx, players, times) {
 
     if (players[i] === 'Вы') {
       ctx.fillStyle = 'rgba(255, 0, 0, 1)';
-    }
-    else {
+    } else {
       ctx.fillStyle = getRandomBlueColor();
     }
 
@@ -57,12 +56,12 @@ var renderScoreList = function(ctx, players, times) {
     renderTextField(ctx, players[i], currentBarX, BAR_Y + BAR_MAX_HEIGHT + 20);
     renderTextField(ctx, Math.round(times[i]), currentBarX, BAR_Y + currentBarHeightDiff - 10);
   }
-}
+};
 
-window.renderStatistics = function(ctx, players, times) {
-    renderCloud(ctx, CLOUD_X + CLOUD_SHADOW_GAP, CLOUD_Y + CLOUD_SHADOW_GAP, 'rgba(0, 0, 0, 0.7)');
-    renderCloud(ctx, CLOUD_X, CLOUD_Y, 'white');
-    renderTextField(ctx, 'Ура вы победили!',CLOUD_X + 20, CLOUD_Y + 30);
-    renderTextField(ctx, 'Список результатов:',CLOUD_X + 20, CLOUD_Y + 50);
-    renderScoreList(ctx, players, times);
-}
+window.renderStatistics = function (ctx, players, times) {
+  renderCloud(ctx, CLOUD_X + CLOUD_SHADOW_GAP, CLOUD_Y + CLOUD_SHADOW_GAP, 'rgba(0, 0, 0, 0.7)');
+  renderCloud(ctx, CLOUD_X, CLOUD_Y, 'white');
+  renderTextField(ctx, 'Ура вы победили!', CLOUD_X + 20, CLOUD_Y + 30);
+  renderTextField(ctx, 'Список результатов:', CLOUD_X + 20, CLOUD_Y + 50);
+  renderScoreList(ctx, players, times);
+};
