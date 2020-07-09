@@ -95,6 +95,8 @@ var hideSetup = function () {
   setup.querySelector('.setup-similar').classList.add('hidden');
   // Удаляем обработчик на Escape
   document.removeEventListener('keydown', onPopupEscPress);
+  setup.style.top = '';
+  setup.style.left = '';
 };
 
 // Функция: задание параметра (случайное значение из массива значений)
