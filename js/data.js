@@ -2,8 +2,6 @@
 
 (function () {
   // Константы
-  var NAMES = ['Иван', 'Хуан Себастьян', 'Мария', 'Кристоф', 'Виктор', 'Юлия', 'Люпита', 'Вашингтон'];
-  var SURNAMES = ['да Марья', 'Верон', 'Мирабелла', 'Вальц', 'Онопко', 'Топольницкая', 'Нионго', 'Ирвинг'];
   var COATCOLORS = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'];
   var EYESCOLORS = ['black', 'red', 'blue', 'yellow', 'green'];
   var FIREBALLCOLORS = ['#ee4830', '#30a8ee', '#5ce6c0', '#e848d5', '#e6e848'];
@@ -29,6 +27,7 @@
   var setupClose = document.querySelector('.setup-close');
 
   var setupWizard = document.querySelector('.setup-wizard');
+  var setupWizardForm = setup.querySelector('.setup-wizard-form');
   var wizardCoat = setupWizard.querySelector('.wizard-coat');
   var wizardEyes = setupWizard.querySelector('.wizard-eyes');
   var wizardFireball = document.querySelector('.setup-fireball-wrap');
@@ -55,11 +54,22 @@
     return maxElement;
   };
 
+  var getRandomUniqueNumbersArr = function (maxNumber, count) {
+    var numbersArr = [];
+    for (var i = 0; i < count; i++) {
+      var newArrNumber = Math.floor(Math.random() * maxNumber);
+      if (numbersArr.includes(newArrNumber)) {
+        i--;
+      } else {
+        numbersArr.push(newArrNumber);
+      }
+    }
+    return numbersArr;
+  };
+
   // Экспорт
   window.data = {
     // Константы
-    NAMES: NAMES,
-    SURNAMES: SURNAMES,
     COATCOLORS: COATCOLORS,
     EYESCOLORS: EYESCOLORS,
     FIREBALLCOLORS: FIREBALLCOLORS,
@@ -81,6 +91,7 @@
     setupOpenIcon: setupOpenIcon,
     setupClose: setupClose,
     setupWizard: setupWizard,
+    setupWizardForm: setupWizardForm,
     wizardCoat: wizardCoat,
     wizardEyes: wizardEyes,
     wizardFireball: wizardFireball,
@@ -88,6 +99,7 @@
     similarWizardTemplate: similarWizardTemplate,
     // Функции
     getRandomElement: getRandomElement,
-    getMaxElement: getMaxElement
+    getMaxElement: getMaxElement,
+    getRandomUniqueNumbersArr: getRandomUniqueNumbersArr
   };
 })();
