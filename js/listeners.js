@@ -28,28 +28,6 @@
     window.data.setup.style.left = '';
   };
 
-  // Функция: задание параметра (случайное значение из массива значений)
-  var setupWizardOption = function (varWithHandler, valuesArr, cssOptionName, inputName) {
-    var input = document.querySelector('.setup-player input[name=' + inputName + ']');
-    var color = window.data.getRandomElement(valuesArr);
-
-    varWithHandler.style.cssText = cssOptionName + ':' + color;
-    input.value = color;
-  };
-
-  // Функции: задание определенных параметров (случайное значение из массива значений)
-  var setupWizardCoat = function () {
-    setupWizardOption(window.data.wizardCoat, window.data.COATCOLORS, 'fill', 'coat-color');
-  };
-
-  var setupWizardEyes = function () {
-    setupWizardOption(window.data.wizardEyes, window.data.EYESCOLORS, 'fill', 'eyes-color');
-  };
-
-  var setupWizardFireball = function () {
-    setupWizardOption(window.data.wizardFireball, window.data.FIREBALLCOLORS, 'background', 'fireball-color');
-  };
-
   // Задаем обработчики событий
   // Обработчики на открытие окна настроек
 
@@ -84,8 +62,29 @@
     }
   });
 
-  // Обработчики на задание параметров
-  window.data.wizardCoat.addEventListener('click', setupWizardCoat);
-  window.data.wizardEyes.addEventListener('click', setupWizardEyes);
-  window.data.wizardFireball.addEventListener('click', setupWizardFireball);
+  var setCoatColor = function (color) {
+    window.wizardMain.coatColor = color;
+  };
+
+  var setEyesColor = function (color) {
+    window.wizardMain.eyesColor = color;
+  };
+
+  var onCoatChange = window.debounce(function () {
+    window.wizardMain.setupWizardCoat();
+    setCoatColor((document.querySelector('.wizard').querySelector('.wizard-coat').style.fill));
+    window.wizardsSimilar.updateSimilarWizards();
+  });
+
+  var onEyesChange = window.debounce(function () {
+    window.wizardMain.setupWizardEyes();
+    setEyesColor((document.querySelector('.wizard').querySelector('.wizard-eyes').style.fill));
+    window.wizardsSimilar.updateSimilarWizards();
+  });
+
+  // // Обработчики на задание параметров
+  window.data.wizardCoat.addEventListener('click', onCoatChange);
+  window.data.wizardEyes.addEventListener('click', onEyesChange);
+  window.data.wizardFireball.addEventListener('click', window.wizardMain.setupWizardFireball);
+
 })();
